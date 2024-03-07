@@ -14,9 +14,9 @@ function urlIs($value)
     return $_SERVER['REQUEST_URI'] === $value;
 }
 
-function authorize($condition, $status = Response::FORBIDDEN)
+function authorize($condition, $status = Core\Response::FORBIDDEN)
 {
-    if (! $condition) {
+    if (!$condition) {
         abort($status);
     }
 }
