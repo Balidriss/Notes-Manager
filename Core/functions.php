@@ -16,6 +16,7 @@ function urlIs($value)
 
 function authorize($condition, $status = Core\Response::FORBIDDEN)
 {
+
     if (!$condition) {
         abort($status);
     }
