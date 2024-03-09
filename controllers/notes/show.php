@@ -5,20 +5,15 @@ $db = Core\App::resolve(Core\Database::class);
 $currentUserId = 1;
 
 //todo need to handle this somewhere else
-if (!empty($_GET['id'])) {
-    $note = $db->query('SELECT * FROM notes WHERE id = :id', [
-        'id' => $_GET['id']
-    ])->findOrFail();
+
+$note = $db->query('SELECT * FROM notes WHERE id = :id', [
+    'id' => $_GET['id']
+])->findOrFail();
 
 
-    authorize((int)$note['user_id'] === $currentUserId);
+authorize((int)$note['user_id'] === $currentUserId);
 
-    view("notes/show.view.php", [
-        'heading' => 'Note',
-        'note' => $note
-    ]);
-} else {
-
-    header('location: /notes');
-    exit();
-}
+view("notes/show.view.php", [
+    'heading' => 'Note',
+    'note' => $note
+]);
