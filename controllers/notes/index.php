@@ -1,7 +1,6 @@
 <?php
 
-$config = require base_path('config.php');
-$db = new Core\Database($config['database']);
+$db = Core\App::resolve(Core\Database::class);
 
 $notes = $db->query('select * from notes')->get();
 

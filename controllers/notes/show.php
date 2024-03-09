@@ -1,17 +1,24 @@
 <?php
 
-$config = require base_path('config.php');
-$db = new Core\Database($config['database']);
+$db = Core\App::resolve(Core\Database::class);
 
 $currentUserId = 1;
 
-$note = $db->query('SELECT * FROM notes WHERE id = :id', [
-    'id' => $_GET['id']
-])->findOrFail();
+//todo need to handle this somewhere else
+if (!empty($_GET['id'])) {
+    $note = $db->query('SELECT * FROM notes WHERE id = :id', [
+        'id' => $_GET['id']
+    ])->findOrFail();
 
-authorize((int)$note['user_id'] === $currentUserId);
 
-view("notes/show.view.php", [
-    'heading' => 'Note',
-    'note' => $note
-]);
+    authorize((int)$note['user_id'] === $currentUserId);
+
+    view("notes/show.view.php", [
+        'heading' => 'Note',
+        'note' => $note
+    ]);
+} else {
+
+    header('location: /notes');
+    exit();
+}

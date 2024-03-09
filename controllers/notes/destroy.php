@@ -1,11 +1,13 @@
 <?php
-$config = require base_path('config.php');
-$db = new Core\Database($config['database']);
+
+
+$db = Core\App::resolve(Core\Database::class);
+
 
 $currentUserId = 1;
 
 $note = $db->query('SELECT * FROM notes WHERE id = :id', [
-    'id' => $_GET['id']
+    'id' => $_POST['id']
 ])->findOrFail();
 
 authorize((int)$note['user_id'] === $currentUserId);
