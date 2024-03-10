@@ -24,8 +24,7 @@ $user = $db->query('SELECT * FROM users WHERE email = :email', ['email' => $emai
 
 if ($user) {
     login($user);
-    header('location: /');
-    exit();
+    redirect('/');
 } else {
 
     $db->query('INSERT INTO users(name, email, password) VALUES ("tempname", :email, :password)', [
@@ -34,6 +33,5 @@ if ($user) {
     ]);
     $user = $db->query('SELECT * FROM users WHERE email = :email', ['email' => $email])->find();
     login($user);
-    header('location: /');
-    exit();
+    redirect('/');
 }
