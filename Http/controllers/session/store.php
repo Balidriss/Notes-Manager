@@ -7,13 +7,10 @@ $password = $_POST['password'];
 
 $form = LoginForm::validate($attributes = ['email' => $email, 'password' => $password]);
 
-if ((new Core\Authenticator())->attempt($attributes['email'], $attributes['password'])) {
-    redirect('/');
+$signedIn = (new Core\Authenticator())->attempt($attributes['email'], $attributes['password']);
+
+
+if (!$signedIn) {
+    $form->error('email', 'No matching account.')->throw();
 }
-
-$form->error('email', 'No matching account.');
-
-
-
-
-redirect('/login');
+redirect('/');

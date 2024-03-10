@@ -25,6 +25,6 @@ try {
 } catch (ValidationException $exception) {
     Session::flash('errors', $exception->errors);
     Session::flash('old', $exception->old);
-    redirect('/login');
+    redirect($router->previousUrl());
 }
 Core\Session::unflash();
