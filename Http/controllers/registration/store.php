@@ -27,7 +27,7 @@ if ($user) {
     redirect('/');
 } else {
 
-    $db->query('INSERT INTO users(name, email, password) VALUES ("tempname", :email, :password)', [
+    $db->query('INSERT INTO users(name, email, password) VALUES ("UnknownName", :email, :password)', [
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT)
     ]);

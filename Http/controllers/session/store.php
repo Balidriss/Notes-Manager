@@ -1,5 +1,7 @@
 <?php
 
+use Core\Session;
+
 $email = $_POST['email'];
 $password = $_POST['password'];
 $errors = [];
@@ -14,4 +16,6 @@ if ($form->validate($email, $password)) {
     $form->error('email', 'No matching account.');
 }
 
-return view('registration/create.view.php', ['errors' => $form->errors()]);
+Session::flash('errors', $form->errors());
+
+redirect('/login');
