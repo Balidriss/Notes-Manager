@@ -1,18 +1,15 @@
 <?php
 
-use Core\Validator;
 
 $db = Core\App::resolve(Core\Database::class);
 $email = $_POST['email'];
 $password = $_POST['password'];
 $errors = [];
 
-if (!Validator::email($email)) {
-    $errors['email'] = 'Please provice a valid email address';
-}
 
-if (!Validator::string($password, 6, 255)) {
-    $errors['password'] = 'Please provice a valid password';
+$form = new Http\Forms\LoginForm();
+if (!$form->validate($email, $password)) {
+    return view('registration/create.view.php', ['errors' => $form->errors()]);
 }
 
 
@@ -27,8 +24,5 @@ if ($user && password_verify($password, $user['password'])) {
 }
 
 
-if (!empty($errors)) {
-    return view('/session/create.view.php', ['errors' => $errors]);
-}
 header('location: /');
 exit();
