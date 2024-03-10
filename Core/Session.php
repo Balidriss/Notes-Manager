@@ -19,7 +19,7 @@ class Session
     }
     public static function flash($key, $value)
     {
-        return $_SESSION['_flash']['key'] = $value;
+        return $_SESSION['_flash'][$key] = $value;
     }
     public static function unflash()
     {

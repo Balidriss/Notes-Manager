@@ -4,8 +4,6 @@ use Core\Session;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
-$errors = [];
-
 
 $form = new Http\Forms\LoginForm();
 if ($form->validate($email, $password)) {
@@ -17,5 +15,6 @@ if ($form->validate($email, $password)) {
 }
 
 Session::flash('errors', $form->errors());
+Session::flash('old', ['email' => $email]);
 
 redirect('/login');
