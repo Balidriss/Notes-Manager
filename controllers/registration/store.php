@@ -2,6 +2,7 @@
 
 use Core\Validator;
 
+$db = Core\App::resolve(Core\Database::class);
 $email = $_POST['email'];
 $password = $_POST['password'];
 
@@ -17,21 +18,22 @@ if (!empty($errors)) {
     return view('registration/create.view.php', ['errors' => $errors]);
 }
 
-$db = Core\App::resolve(Core\Database::class);
-$user = $db->query('SELECT * FROM users WHERE email = :email', ['email' => $email])->find();
-$_SESSION['user'] = ['email' => $email];
-if ($user) {
-    $_SESSION['user'] = ['email' => $email];
 
+$user = $db->query('SELECT * FROM users WHERE email = :email', ['email' => $email])->find();
+
+
+if ($user) {
+    login($user);
     header('location: /');
     exit();
 } else {
-    $db->query('INSERT INTO users(email, password) VALUES (:email, :password)', [
+
+    $db->query('INSERT INTO users(name, email, password) VALUES ("tempname", :email, :password)', [
         'email' => $email,
         'password' => password_hash($password, PASSWORD_DEFAULT)
     ]);
-
-
+    $user = $db->query('SELECT * FROM users WHERE email = :email', ['email' => $email])->find();
+    login($user);
     header('location: /');
     exit();
 }

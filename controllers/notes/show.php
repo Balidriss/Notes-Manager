@@ -2,7 +2,7 @@
 
 $db = Core\App::resolve(Core\Database::class);
 
-$currentUserId = 1;
+$currentUserId = $_SESSION['user']['id'];
 
 //todo need to handle this somewhere else
 
