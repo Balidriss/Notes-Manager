@@ -2,13 +2,13 @@
 
 namespace Core\Middleware;
 
-class Auth
+use Core\Session;
+
+class Log
 {
-
-
     public function handle()
     {
-        if (!$_SESSION['user'] ?? false) {
+        if (!Session::isLogged()) {
             header('location: /');
             exit();
         }
