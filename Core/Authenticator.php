@@ -16,7 +16,7 @@ class Authenticator
     }
     public function login($user)
     {
-        $_SESSION['user'] = $user;
+        Session::put('user', $user);
         session_regenerate_id(true);
     }
     public static function logout()
