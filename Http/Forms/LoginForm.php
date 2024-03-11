@@ -12,7 +12,7 @@ class LoginForm
     public function __construct(public array $attributes)
     {
 
-        if (!Validator::email($attributes['email'])) {
+        if (!Validator::email($attributes['email'], 1, 255)) {
             $this->errors['email'] = 'Please provice a valid email address';
         }
 
