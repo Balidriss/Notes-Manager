@@ -1,9 +1,10 @@
 <?php
 
+use Core\Session;
 use Http\Forms\NotesForm;
 
 $body = $_POST['body'];
-$user_id = $_SESSION['user']['id'];
+$user_id = Session::getid();
 
 NotesForm::validate($attributes = ['body' => $body]);
 

@@ -1,17 +1,19 @@
 <?php
 
-$db = Core\App::resolve(Core\Database::class);
-$currentUserId = $_SESSION['user']['id'];
+use Core\Session;
 
-$note = $db->query('SELECT * FROM notes WHERE id = :id', [
-    'id' => $_GET['id']
+$note_id =  $_GET['id'];
+$user_id = Session::getId();
+
+
+$note = Core\App::resolve(Core\Database::class)->query('SELECT * FROM notes WHERE id = :id', [
+    'id' => $note_id
 ])->findOrFail();
 
-authorize((int)$note['user_id'] === $currentUserId);
-
+authorize((int)$note['user_id'] === $user_id);
 
 view("notes/edit.view.php", [
     'heading' => 'Edit Note',
-    'errors' => [],
+    'errors' => Core\Session::get('errors'),
     'note' => $note
 ]);

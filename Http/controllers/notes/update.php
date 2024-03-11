@@ -1,29 +1,19 @@
 <?php
 
-$db = Core\App::resolve(Core\Database::class);
-$currentUserId = 1;
-$errors = [];
+use Core\Session;
+use Http\Forms\NotesForm;
 
-$note = $db->query('SELECT * FROM notes WHERE id = :id', [
-    'id' => $_POST['id']
+$body = $_POST['body'];
+$user_id = Session::getId();
+$note_id = $_POST['id'];
+
+$note = Core\App::resolve(Core\Database::class)->query('SELECT * FROM notes WHERE id = :id', [
+    'id' => $note_id
 ])->findOrFail();
 
-authorize((int)$note['user_id'] === $currentUserId);
+NotesForm::validate($attributes = ['body' => $body]);
 
+authorize((int)$note['user_id'] === $user_id);
+Core\App::resolve(Core\Database::class)->query('UPDATE notes SET body = :body WHERE id = :id', ['body' => $body, 'id' => $note_id]);
 
-if (!Core\Validator::string($_POST['body'], 1, 1000)) {
-    $errors['body'] = 'A body of no more than 1,000 characters is required.';
-}
-
-if (!empty($errors)) {
-    return view("notes/edit.view.php", [
-        'heading' => 'Edit Note',
-        'errors' => $errors,
-        'note' => $note
-    ]);
-}
-
-$db->query('UPDATE notes SET body = :body WHERE id = :id', ['body' => $_POST['body'], 'id' => $_POST['id']]);
-
-header('location: /notes');
-die();
+redirect('/notes');

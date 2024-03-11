@@ -1,21 +1,19 @@
 <?php
 
+use Core\Session;
 
-$db = Core\App::resolve(Core\Database::class);
+$note_id = $_POST['id'];
+$user_id = Session::getId();
 
-
-$currentUserId = $_SESSION['user']['id'];
-
-$note = $db->query('SELECT * FROM notes WHERE id = :id', [
-    'id' => $_POST['id']
+$note = Core\App::resolve(Core\Database::class)->query('SELECT * FROM notes WHERE id = :id', [
+    'id' => $note_id
 ])->findOrFail();
 
-authorize((int)$note['user_id'] === $currentUserId);
+authorize((int)$note['user_id'] === $user_id);
 
-$db->query(
+Core\App::resolve(Core\Database::class)->query(
     'DELETE FROM notes WHERE id = :id',
-    ['id' => $_POST['id']]
+    ['id' => $note_id]
 );
 
-header('location: /notes');
-exit();
+redirect('/notes');
