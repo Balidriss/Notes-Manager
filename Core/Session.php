@@ -29,6 +29,18 @@ class Session
     {
         $_SESSION = [];
     }
+
+    public static function isLogged()
+    {
+        return (bool)static::get('user');
+    }
+
+    public static function getId()
+    {
+        $user = static::get('user');
+        return $user['id'];
+    }
+
     public static function destroy()
     {
         Session::flush();
