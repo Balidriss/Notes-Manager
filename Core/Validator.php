@@ -15,4 +15,9 @@ class Validator
     {
         return filter_var($value, FILTER_VALIDATE_EMAIL);
     }
+
+    public static function id($id1, $id2)
+    {
+        return $id1 === $id2;
+    }
 }
