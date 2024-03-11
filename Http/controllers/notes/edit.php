@@ -1,7 +1,7 @@
 <?php
 
 $db = Core\App::resolve(Core\Database::class);
-$currentUserId = 1;
+$currentUserId = $_SESSION['user']['id'];
 
 $note = $db->query('SELECT * FROM notes WHERE id = :id', [
     'id' => $_GET['id']

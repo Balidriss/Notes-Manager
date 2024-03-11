@@ -3,7 +3,6 @@
 <?php require base_path('views/partials/banner.php') ?>
 
 <main>
-    <?= var_dump($_SESSION['user']['id']) ?>
     <div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
         <ul>
             <?php foreach ($notes as $note) : ?>
