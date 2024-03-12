@@ -11,8 +11,7 @@ class Guest
     public function handle()
     {
         if (Session::isLogged()) {
-            header('location: /');
-            exit();
+            redirect('/');
         }
     }
 }
