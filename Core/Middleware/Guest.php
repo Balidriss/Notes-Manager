@@ -2,7 +2,7 @@
 
 namespace Core\Middleware;
 
-use Core\Session;
+use Core\Session\Session;
 
 class Guest
 {

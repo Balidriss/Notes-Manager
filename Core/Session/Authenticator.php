@@ -1,6 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Session;
+
+use Core\App;
+use Core\Database;
 
 class Authenticator
 {
@@ -10,17 +13,8 @@ class Authenticator
         $user = App::resolve(Database::class)->query('SELECT * FROM users WHERE email = :email', ['email' => $email])->find();
         if ($user && password_verify($password, $user['password'])) {
 
-            $this->login($user);
+            Session::login($user);
         }
         return !empty($user);
-    }
-    public function login($user)
-    {
-        Session::put('user', $user);
-        session_regenerate_id(true);
-    }
-    public static function logout()
-    {
-        Session::destroy();
     }
 }

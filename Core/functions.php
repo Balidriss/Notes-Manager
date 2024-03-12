@@ -52,5 +52,5 @@ function redirect($path)
 }
 function old($key, $default = '')
 {
-    return Core\Session::get('old')[$key] ?? $default;
+    return Core\Session\Session::get('old')[$key] ?? $default;
 }

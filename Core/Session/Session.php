@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace Core\Session;
 
 class Session
 {
@@ -37,10 +37,18 @@ class Session
 
     public static function getId()
     {
-        $user = static::get('user');
-        return $user['id'];
+        return static::isLogged() ? static::get('user')['id'] : null;
     }
 
+    public static function login($user)
+    {
+        $_SESSION['user'] = $user;
+        session_regenerate_id(true);
+    }
+    public static function logout()
+    {
+        Session::destroy();
+    }
     public static function destroy()
     {
         Session::flush();

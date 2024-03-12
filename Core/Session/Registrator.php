@@ -1,6 +1,9 @@
 <?php
 
-namespace Core;
+namespace Core\Session;
+
+use Core\App;
+use Core\Database;
 
 class Registrator
 {
@@ -16,20 +19,8 @@ class Registrator
                 'email' => $email,
                 'password' => password_hash($password, PASSWORD_DEFAULT)
             ]);
-            $this->login($user = App::resolve(Database::class)->query('SELECT * FROM users WHERE email = :email', ['email' => $email])->find());
+            Session::login($user = App::resolve(Database::class)->query('SELECT * FROM users WHERE email = :email', ['email' => $email])->find());
         }
         return !empty($user);
-    }
-
-    public function login($user)
-    {
-        $_SESSION['user'] = $user;
-        session_regenerate_id(true);
-    }
-
-
-    public static function logout()
-    {
-        Session::destroy();
     }
 }

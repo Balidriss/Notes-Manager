@@ -1,13 +1,14 @@
 <?php
 
 use Http\Forms\LoginForm;
+use Core\Session\Registrator;
 
 $email = $_POST['email'];
 $password = $_POST['password'];
 
 $form = LoginForm::validate($attributes = ['email' => $email, 'password' => $password]);
 
-$signedIn = (new Core\Registrator())->attempt($attributes['email'], $attributes['password']);
+$signedIn = (new Registrator())->attempt($attributes['email'], $attributes['password']);
 
 
 if ($signedIn) {

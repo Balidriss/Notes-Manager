@@ -1,9 +1,11 @@
 <?php
 
+use Core\Session\Session;
+
 view(
     "notes/create.view.php",
     [
         'heading' => 'Create Note',
-        'errors' => Core\Session::get('errors')
+        'errors' => Session::get('errors')
     ]
 );
