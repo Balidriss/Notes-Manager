@@ -2,7 +2,10 @@
 
 $router->get('/', 'index.php');
 $router->get('/about', 'about.php');
-$router->get('/contact', 'contact.php');
+
+$router->get('/contact', 'contact/create.php');
+$router->post('/contact', 'contact/store.php');
+$router->get('/submited', 'contact/success.php');
 
 $router->get('/notes', 'notes/index.php')->only('log');
 $router->get('/note', 'notes/show.php')->only('log');
