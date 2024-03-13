@@ -9,7 +9,7 @@ class RegisterForm extends Form
 
     public function __construct(public array $attributes)
     {
-        if (!Validator::email($attributes['email'], 1, 255)) {
+        if (!Validator::email($attributes['email'])) {
             $this->errors['email'] = 'Please provice a valid email address.';
         }
 
