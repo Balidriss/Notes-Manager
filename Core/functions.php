@@ -54,3 +54,7 @@ function old($key, $default = '')
 {
     return Core\Session\Session::get('old')[$key] ?? $default;
 }
+function userEmail()
+{
+    return $_SESSION['user']['email'] ?? null;
+}
