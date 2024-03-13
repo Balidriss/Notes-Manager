@@ -33,6 +33,18 @@ CREATE TABLE `notes` (
   `body` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+
+CREATE TABLE `messages` (
+  `id` int(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `subject` varchar(100) NOT NULL,
+  `body` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `messages`
+  ADD PRIMARY KEY (`id`),
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+
 -- --------------------------------------------------------
 
 --
@@ -40,7 +52,7 @@ CREATE TABLE `notes` (
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+  `id` int(255) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL
@@ -78,7 +90,7 @@ ALTER TABLE `notes`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
