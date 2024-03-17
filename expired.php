@@ -17,13 +17,13 @@ try {
 
     $delete_user_query = "DELETE FROM users WHERE created_at < (NOW() - INTERVAL ? MINUTE)";
     $delete_user_stmt = $conn->prepare($delete_user_query);
-    $delete_user_stmt->bindValue(1, $inactive_time_threshold, PDO::PARAM_INT);
-
-
+    $delete_messages_query = "DELETE FROM messages";
+    $delete_messages_stmt = $conn->prepare($delete_messages_query);
+    $delete_messages_stmt->execute();
     $delete_user_stmt->execute();
 
 
-    echo "Successfully deleted inactive users.\n";
+    echo "Delete query attempted.\n";
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
 }
