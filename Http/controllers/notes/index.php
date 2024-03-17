@@ -1,6 +1,10 @@
 <?php
 
-$notes = Core\App::resolve(Core\Database::class)->query('select * from notes')->get();
+use Core\Session\Session;
+
+
+
+$notes = Core\App::resolve(Core\Database::class)->query('SELECT * FROM notes WHERE user_id = :id', ['id' => Session::getId()])->get();
 
 view("notes/index.view.php", [
     'heading' => 'My Notes',
